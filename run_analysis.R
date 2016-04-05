@@ -1,4 +1,5 @@
-library(reshape2)
+
+## Make sure that the required data files are inside "UCI HAR Dataset" folder in the working directory
 
 # Load activity labels and features
 activity_label <- read.table("UCI HAR Dataset/activity_labels.txt")
@@ -14,11 +15,14 @@ features_required.names = gsub('-std', 'Std', features_required.names)
 features_required.names <- gsub('[-()]', '', features_required.names)
 
 ## Load the datasets
+
+#Load the train data
 data_train <- read.table("UCI HAR Dataset/train/X_train.txt")[features_required]
 activities_train <- read.table("UCI HAR Dataset/train/Y_train.txt")
 subjects_train <- read.table("UCI HAR Dataset/train/subject_train.txt")
 data_train <- cbind(subjects_train, activities_train, data_train)
 
+# Load the test data
 data_test <- read.table("UCI HAR Dataset/test/X_test.txt")[features_required]
 activities_test <- read.table("UCI HAR Dataset/test/Y_test.txt")
 subjects_test <- read.table("UCI HAR Dataset/test/subject_test.txt")
