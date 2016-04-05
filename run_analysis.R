@@ -1,3 +1,5 @@
+library(reshape2)
+
 # Load activity labels and features
 activity_label <- read.table("UCI HAR Dataset/activity_labels.txt")
 activity_label[,2] <- as.character(activity_label[,2])
@@ -30,10 +32,8 @@ colnames(data_merged) <- c("subject", "activity", features_required.names)
 data_merged$activity <- factor(data_merged$activity, levels = activity_label[,1], labels = activity_label[,2])
 data_merged$subject <- as.factor(data_merged$subject)
 
-library(reshape2)
 data_merged.melted <- melt(data_merged, id = c("subject", "activity"))
 data_merged.mean <- dcast(data_merged.melted, subject + activity ~ variable, mean)
 
 ## write the datasets into the file
 write.table(data_merged.mean, "tidy_data.txt", row.names = FALSE, quote = FALSE)
-
